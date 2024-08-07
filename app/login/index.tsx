@@ -1,4 +1,4 @@
-import { View, Text, Image, TextInput } from "react-native";
+import { View, Text } from "react-native";
 import React, { useState } from "react";
 import styles from "@/styles/global";
 import { LinearGradient } from "expo-linear-gradient";
@@ -7,6 +7,7 @@ import { Nunito_400Regular, Nunito_700Bold } from "@expo-google-fonts/nunito";
 import margin from "@/styles/margin";
 import { Fontisto } from "@expo/vector-icons";
 import Input from "@/components/Inputs/Input";
+import { Image } from "expo-image";
 
 export default function index() {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
@@ -23,7 +24,7 @@ export default function index() {
     return null;
   }
   return (
-    <LinearGradient colors={["#E5ECF9", "#F6F7F9"]} style={{ flex: 1 }}>
+    <LinearGradient colors={["#E5ECF9", "#F6F7F9"]} style={{ flex: 1, justifyContent: "center" }}>
       <View style={[margin.top4, { alignSelf: "center" }]}>
         <Image
           source={require("@/assets/draws/draw6.svg")}
@@ -55,18 +56,18 @@ export default function index() {
       <View style={margin.top4}>
         <Input
           value={emailOrUserName}
-          icon="email"
           placeholder="Email or Username"
           onchange={(text) => setEmailOrUserName(text)}
           keyboard="email-address"
+          icon="email"
         />
         <Input
           value={password}
-          icon="locked"
           placeholder="Password"
           onchange={(text) => setPassword(text)}
           keyboard="default"
           password
+          icon="lock"
         />
       </View>
     </LinearGradient>

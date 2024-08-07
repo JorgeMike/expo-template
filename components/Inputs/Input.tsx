@@ -16,23 +16,41 @@ interface InputProps {
   value: string;
   onchange: (text: string) => void;
   keyboard: KeyboardTypeOptions;
-  icon: iconsType;
   password?: boolean;
+  icon?: string;
 }
 
 export default function Input({
   value,
   placeholder,
-  icon,
   keyboard,
   password = false,
+  icon,
   onchange,
 }: InputProps) {
   const [showPassword, setShowPassword] = useState(false);
 
+  const getIcon = (icon: string) => {
+    switch (icon) {
+      case "email":
+        return "email";
+      case "lock":
+        return "locked";
+      case "user":
+        return "person";
+      case "phone":
+        return "phone";
+      case "search":
+        return "search";
+      case "key":
+        return "key";
+      default:
+        return "email";
+    }
+  };
+
   return (
     <View style={[margin.bottom2, styles.inputContainer]}>
-      <Fontisto name={icon} style={styles.inputIcon} />
       <TextInput
         style={styles.input}
         placeholder={placeholder}
@@ -41,6 +59,7 @@ export default function Input({
         onChangeText={(text) => onchange(text)}
         secureTextEntry={password && !showPassword}
       />
+      {icon && <Fontisto name={getIcon(icon)} style={styles.inputIcon} />}
       {password && (
         <TouchableOpacity
           style={styles.showPasswordButton}

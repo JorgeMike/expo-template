@@ -1,4 +1,4 @@
-import { Image, StyleSheet, Text, View } from "react-native";
+import { Text } from "react-native";
 import React from "react";
 import styles from "@/styles/global";
 import { Raleway_700Bold, useFonts } from "@expo-google-fonts/raleway";
@@ -9,6 +9,8 @@ import { router } from "expo-router";
 import { welcomeSliders } from "@/constants/sliders";
 import buttons from "@/styles/buttons";
 import margin from "@/styles/margin";
+import { LinearGradient } from "expo-linear-gradient";
+import { Image } from "expo-image";
 
 export default function index() {
   const [fontsLoaded, fontError] = useFonts({
@@ -23,7 +25,7 @@ export default function index() {
 
   const renderItem = ({ item }: { item: slider }) => {
     return (
-      <View style={[styles.container, margin.top4]}>
+      <LinearGradient colors={["#E5ECF9", "#F6F7F9"]} style={styles.container}>
         <Text
           style={[styles.title, margin.y4, { fontFamily: "Raleway_700Bold" }]}
         >
@@ -61,7 +63,7 @@ export default function index() {
         >
           {item.text}
         </Text>
-      </View>
+      </LinearGradient>
     );
   };
 

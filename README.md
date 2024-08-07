@@ -15,6 +15,7 @@ Fuentes:
 Componentes:
 `npm i expo-linear-gradient`
 `npm i react-native-app-intro-slider`
+`npx expo install expo-image`
 
 Responsividad:
 `npm i react-native-responsive-screen`

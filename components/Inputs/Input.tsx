@@ -18,6 +18,7 @@ interface InputProps {
   keyboard: KeyboardTypeOptions;
   password?: boolean;
   icon?: string;
+  style?: any;
 }
 
 export default function Input({
@@ -27,6 +28,7 @@ export default function Input({
   password = false,
   icon,
   onchange,
+  style,
 }: InputProps) {
   const [showPassword, setShowPassword] = useState(false);
 
@@ -45,12 +47,12 @@ export default function Input({
       case "key":
         return "key";
       default:
-        return "email";
+        return "person";
     }
   };
 
   return (
-    <View style={[margin.bottom2, styles.inputContainer]}>
+    <View style={[styles.inputContainer, style]}>
       <TextInput
         style={styles.input}
         placeholder={placeholder}

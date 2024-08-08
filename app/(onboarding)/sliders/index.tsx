@@ -1,6 +1,6 @@
 import { Text } from "react-native";
 import React from "react";
-import styles from "@/styles/global";
+import globalStyles from "@/styles/global";
 import { Raleway_700Bold, useFonts } from "@expo-google-fonts/raleway";
 import { Nunito_400Regular, Nunito_700Bold } from "@expo-google-fonts/nunito";
 import { slider } from "@/types/global";
@@ -25,23 +25,30 @@ export default function index() {
 
   const renderItem = ({ item }: { item: slider }) => {
     return (
-      <LinearGradient colors={["#E5ECF9", "#F6F7F9"]} style={styles.container}>
+      <LinearGradient
+        colors={["#E5ECF9", "#F6F7F9"]}
+        style={globalStyles.container}
+      >
         <Text
-          style={[styles.title, margin.y4, { fontFamily: "Raleway_700Bold" }]}
+          style={[
+            globalStyles.title,
+            margin.y4,
+            { fontFamily: "Raleway_700Bold" },
+          ]}
         >
           {item.title}
         </Text>
         <Image
           source={item.image}
           style={[
-            styles.draw,
+            globalStyles.draw,
             margin.y4,
             { width: item.imageSize?.width, height: item.imageSize?.height },
           ]}
         />
         <Text
           style={[
-            styles.subtitle,
+            globalStyles.subtitle,
             margin.top4,
             margin.x4,
             {
@@ -53,7 +60,7 @@ export default function index() {
         </Text>
         <Text
           style={[
-            styles.text,
+            globalStyles.text,
             margin.top2,
             margin.x4,
             {
@@ -76,7 +83,7 @@ export default function index() {
   };
 
   const handleRouterLogin = () => {
-    router.push("/login");
+    router.push("/sign-in");
   };
 
   return (
@@ -88,8 +95,8 @@ export default function index() {
       renderNextButton={renderNextButton}
       renderDoneButton={renderDoneButton}
       showSkipButton={false}
-      dotStyle={styles.dots}
-      activeDotStyle={styles.activeDot}
+      dotStyle={globalStyles.dots}
+      activeDotStyle={globalStyles.activeDot}
       bottomButton={true}
     />
   );

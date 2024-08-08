@@ -20,9 +20,26 @@ const buttons = StyleSheet.create({
     color: "white",
     textAlign: "center",
   },
+  danger: {
+    backgroundColor: "#D14545",
+    borderRadius: 5,
+    padding: 10,
+    color: "white",
+    textAlign: "center",
+  },
+  warning: {
+    backgroundColor: "#D97706",
+    borderRadius: 5,
+    padding: 10,
+    color: "white",
+    textAlign: "center",
+  },
   text: {
     color: "white",
     textAlign: "center",
+  },
+  disabled: {
+    opacity: 0.5,
   },
 });
 

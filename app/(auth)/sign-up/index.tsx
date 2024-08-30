@@ -18,6 +18,7 @@ import {
   Nunito_700Bold,
 } from "@expo-google-fonts/nunito";
 import { FontAwesome } from "@expo/vector-icons";
+import inputStyles from "@/styles/inputs";
 
 export default function index() {
   const [isLoading, setIsLoading] = useState(false);
@@ -69,8 +70,7 @@ export default function index() {
           Create an account to get all features
         </Text>
       </View>
-      <View style={margin.top4}>
-        <Text>Hola</Text>
+      <View style={[margin.top4]}>
         <Input
           value={name}
           placeholder="Complete name"

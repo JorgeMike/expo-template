@@ -1,6 +1,7 @@
+import useSession from "@/hooks/useSession";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { useFonts } from "expo-font";
-import { Stack } from "expo-router";
+import { Redirect, Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect, useState } from "react";
 import { Text, View } from "react-native";
@@ -44,20 +45,12 @@ export default function RootLayout() {
 }
 
 function RootLayoutNav() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-
   return (
-    <>
-      {isLoggedIn ? (
-        <View>
-          <Text>Tab Layout</Text>
-        </View>
-      ) : (
-        <Stack screenOptions={{ headerShown: false }}>
-          <Stack.Screen name="index" />
-          <Stack.Screen name="(onboarding)/sliders/index" />
-        </Stack>
-      )}
-    </>
+
+    <Stack screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="index" />
+      <Stack.Screen name="(onboarding)/sliders/index" />
+    </Stack>
+
   );
 }

@@ -16,6 +16,7 @@ import {
 import { Image } from "expo-image";
 import Button from "@/components/Inputs/Button";
 import { router } from "expo-router";
+import inputStyles from "@/styles/inputs";
 
 export default function index() {
   const [code, setCode] = useState(new Array(4).fill(""));
@@ -89,7 +90,7 @@ export default function index() {
             ref={inputs.current[index]}
             value={_}
             onChangeText={(value) => handleInput(index, value)}
-            style={globalStyles.inputBox}
+            style={inputStyles.inputBox}
             keyboardType="number-pad"
             maxLength={1}
           />

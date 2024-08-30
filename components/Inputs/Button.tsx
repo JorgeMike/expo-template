@@ -4,20 +4,18 @@ import {
   TouchableOpacity,
   ViewStyle,
   StyleProp,
+  TextStyle,
 } from "react-native";
 import React from "react";
-import margin from "@/styles/margin";
 import globalStyles from "@/styles/global";
-import padding from "@/styles/padding";
 import buttons from "@/styles/buttons";
-import { StyleProps } from "react-native-reanimated";
 
 interface ButtonProps {
   text: string;
   onPress: () => void;
   variant?: "primary" | "succes" | "danger" | "warning";
   fullWidth?: boolean;
-  textStyle?: StyleProps;
+  textStyle?: StyleProp<TextStyle>;
   touchableStyle?: StyleProp<ViewStyle>;
   disabled?: boolean;
 }
@@ -52,7 +50,7 @@ export default function Button({
           textStyle,
         ]}
       >
-        {text}
+        {disabled ? "Loading..." : text}
       </Text>
     </TouchableOpacity>
   );

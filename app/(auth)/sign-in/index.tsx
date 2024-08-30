@@ -1,5 +1,5 @@
 import { View, Text, TouchableOpacity } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import globalStyles from "@/styles/global";
 import { LinearGradient } from "expo-linear-gradient";
 import {
@@ -18,11 +18,18 @@ import { Image } from "expo-image";
 import { router } from "expo-router";
 import Button from "@/components/Inputs/Button";
 import { FontAwesome } from "@expo/vector-icons";
+import axios from "axios";
+import useAuth from "@/hooks/useAuth";
+import alerts from "@/styles/alerts";
 
 export default function index() {
+  const { login, error } = useAuth()
   const [isLoading, setIsLoading] = useState(false);
-  const [emailOrUserName, setEmailOrUserName] = useState("");
-  const [password, setPassword] = useState("");
+  const [userData, setUserData] = useState({
+    emailOrUserName: "",
+    password: "",
+  });
+
   const [fontsLoaded, fontError] = useFonts({
     Raleway_700Bold,
     Raleway_600SemiBold,
@@ -35,12 +42,18 @@ export default function index() {
     return null;
   }
 
+  const handleSubmit = async () => {
+    setIsLoading(true)
+    await login(userData.emailOrUserName, userData.password)
+    setIsLoading(false)
+  }
+
   return (
     <LinearGradient
       colors={["#E5ECF9", "#F6F7F9"]}
       style={{ flex: 1, justifyContent: "center" }}
     >
-      <View style={[margin.top4, { alignSelf: "center" }]}>
+      <View style={{ alignSelf: "center" }}>
         <Image
           source={require("@/assets/draws/draw6.svg")}
           style={{
@@ -70,41 +83,44 @@ export default function index() {
       </View>
       <View style={margin.top4}>
         <Input
-          value={emailOrUserName}
+          value={userData.emailOrUserName}
           placeholder="Email or Username"
-          onchange={(text) => setEmailOrUserName(text)}
+          onchange={(text) =>
+            setUserData({ ...userData, emailOrUserName: text })
+          }
           keyboard="email-address"
           icon="email"
           style={margin.bottom2}
         />
         <Input
-          value={password}
+          value={userData.password}
           placeholder="Password"
-          onchange={(text) => setPassword(text)}
+          onchange={(text) => setUserData({ ...userData, password: text })}
           keyboard="default"
           password
           icon="lock"
         />
         <TouchableOpacity onPress={() => router.push("/forgot-password")}>
           <Text
-            style={{
+            style={[{
               textAlign: "right",
               fontFamily: "Nunito_600Semibold",
               color: "#3B82F6",
               fontSize: 14,
-              marginTop: 5,
-              marginHorizontal: 32,
-            }}
+            }, margin.y2, margin.x2]}
           >
             Forgot Password?
           </Text>
         </TouchableOpacity>
+        {error &&
+          <Text style={[alerts.danger, margin.bottom2, margin.x3]}>{error}</Text>
+        }
         <View style={{ alignSelf: "center" }}>
           <Button
-            touchableStyle={[margin.top2]}
             fullWidth
             text="Sign In"
-            onPress={() => router.push("/home")}
+            onPress={handleSubmit}
+            disabled={isLoading}
           />
         </View>
 
@@ -123,7 +139,7 @@ export default function index() {
             <Text style={{ fontFamily: "Nunito_400Regular" }}>
               Don't have an account?{" "}
             </Text>
-            <TouchableOpacity onPress={() => router.push("/(auth)/sign-up")}>
+            <TouchableOpacity onPress={() => router.push("/(auth)/sign-up")} disabled={isLoading}>
               <Text
                 style={{ fontFamily: "Raleway_600SemiBold", color: "#3B82F6" }}
               >

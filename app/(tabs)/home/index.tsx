@@ -6,10 +6,8 @@ import useAuth from "@/hooks/useAuth";
 import useSession from "@/hooks/useSession";
 
 export default function index() {
-  const session = useSession()
+  const { token, user } = useSession()
 
-  console.log(session)
-  
   return (
     <LinearGradient
       colors={["#E5ECF9", "#F6F7F9"]}

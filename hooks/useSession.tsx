@@ -1,20 +1,31 @@
 import { useState, useEffect } from 'react'
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import { Session } from '@/types/auth'
+import { User } from '@/types/auth'
 import { router } from 'expo-router'
 
 export default function useSession() {
-    const [session, setSession] = useState<Session | null>(null)
+    const [user, setUser] = useState<User | null>(null)
+    const [token, setToken] = useState<string | null>(null)
+    const [isLoading, setIsLoading] = useState(false)
+    const [error, setError] = useState<string | null>(null)
+
+    const clearStorage = () => {
+        setUser(null)
+        setToken(null)
+    }
 
     useEffect(() => {
         const checkSession = async () => {
+            setIsLoading(true)
             try {
                 const token = await AsyncStorage.getItem("token")
                 const expires = await AsyncStorage.getItem("expires")
                 const user = await AsyncStorage.getItem("user")
 
                 if (!token || !expires || !user) {
-                    setSession(null)
+                    clearStorage()
+                    setIsLoading(false)
+                    router.push("/(auth)/sign-in")
                     return
                 }
 
@@ -25,26 +36,30 @@ export default function useSession() {
                     await AsyncStorage.removeItem("token")
                     await AsyncStorage.removeItem("expires")
                     await AsyncStorage.removeItem("user")
-                    setSession(null)
+                    clearStorage()
+
+                    setIsLoading(false)
+                    setError("Tu session ha expirado")
 
                     router.push("/sign-in")
                     return
                 }
 
-                setSession({
-                    token: token,
-                    user: JSON.parse(user),
-                })
+                setUser(JSON.parse(user))
+                setToken(token)
+                setIsLoading(false)
+                setError(null)
 
             } catch (error) {
                 console.log("Error getting session")
                 console.log(error)
-                setSession(null)
+                setIsLoading(false)
+                clearStorage()
             }
         }
 
         checkSession()
     }, [])
 
-    return session
+    return { user, token, error, isLoading }
 }
